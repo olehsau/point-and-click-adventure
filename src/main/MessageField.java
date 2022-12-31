@@ -2,11 +2,16 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MessageField extends JTextArea {
 
     private JFrame window;
     private Thread thread = new Thread();
+    private LinkedList<String> messagesList = new LinkedList<String>();
+    private LinkedList<Integer> durationsList = new LinkedList<Integer>();
+    public boolean isDisplaying = false;
 
     public MessageField(JFrame window){
         this.window = window;
@@ -21,26 +26,47 @@ public class MessageField extends JTextArea {
         window.add(this);
     }
 
-    public void printMessage(String message, int durationMs){
-
+    public void printMessage(String msg, int durationMs){
+        messagesList.add(msg);
+        durationsList.add(durationMs/ 20);
+        isDisplaying=true;
+        if(messagesList.size()>1){
+            return;
+        }
         thread = new Thread(()->{
-            for(int i=1; i<=message.length(); i++){
-                setText(message.substring(0,i));
+            while (!messagesList.isEmpty()) {
+                String message = messagesList.pop();
+
+                for (int i = 1; i <= message.length(); i++) {
+                    setText(message.substring(0, i));
+                    try {
+                        Thread.sleep(20/ 10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(durationsList.pop());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                setText("");
             }
-            try {
-                Thread.sleep(durationMs);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            setText("");
-            thread.notifyAll();
+            isDisplaying=false;
         }, "messageThread");
         thread.start();
+    }
+
+    // like message but interrupts and can be interrupted
+    public void printComment(String comment, int durationMs){
+        messagesList.clear();
+        durationsList.clear();
+        thread.stop();
+        printMessage(comment,durationMs);
+    }
+
+    public Thread getThread(){
+        return thread;
     }
 
 }

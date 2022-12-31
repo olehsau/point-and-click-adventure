@@ -14,11 +14,18 @@ public class UI {
     public UI(GameManager gm){
         this.gm = gm;
         initWindow();
-        gameField = new GameField(this.window);
         messageField = new MessageField(this.window);
-        messageField.printMessage("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO my name is Oleh",5000);
-        messageField.printMessage("second message",6000);
-        System.out.println("boom");
+        gameField = new GameField(this.window, this.messageField);
+        Inventory.initInventory(this.window);
+
+        messageField.printMessage("...",4000);
+        messageField.printMessage("Де я?",4000);
+        messageField.printMessage("Я-я..., я не...",4000);
+        messageField.printMessage("Що я тут роблю? Що це за місце?",5000);
+        messageField.printMessage("...",3000);
+        messageField.printMessage("Ці отвори у стінах схожі на якісь портали. Зі мною не станеться нічого поганого якщо я загляну у них?",5000);
+
+        gameField.drawRoomWithPortals();
 
         window.setVisible(true);
     }
@@ -32,6 +39,15 @@ public class UI {
         window.getContentPane().setBackground(Color.BLACK);
         window.setLayout(null);
         window.setResizable(false);
+    }
+
+
+    private void sleep(int milis){
+        try {
+            Thread.sleep(milis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Thread getThreadByName(String threadName) {
