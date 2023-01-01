@@ -28,7 +28,7 @@ public class MessageField extends JTextArea {
 
     public void printMessage(String msg, int durationMs){
         messagesList.add(msg);
-        durationsList.add(durationMs/ 20);
+        durationsList.add(durationMs/ Constants.speedMultiplayer);
         isDisplaying=true;
         if(messagesList.size()>1){
             return;
@@ -40,7 +40,7 @@ public class MessageField extends JTextArea {
                 for (int i = 1; i <= message.length(); i++) {
                     setText(message.substring(0, i));
                     try {
-                        Thread.sleep(20/ 10);
+                        Thread.sleep(20/ Constants.speedMultiplayer);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -64,6 +64,14 @@ public class MessageField extends JTextArea {
         thread.stop();
         printMessage(comment,durationMs);
     }
+
+    public void printMessageOfEntity(String msg, int dur){
+        setFont(new Font("Book Antiqua",Font.ITALIC,26));
+        printMessage(msg,dur);
+
+        setFont(new Font("Book Antiqua",Font.PLAIN,28));
+    }
+
 
     public Thread getThread(){
         return thread;

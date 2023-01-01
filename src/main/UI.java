@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class UI {
 
@@ -16,14 +17,15 @@ public class UI {
         initWindow();
         messageField = new MessageField(this.window);
         gameField = new GameField(this.window, this.messageField);
+        World.initWorld(gameField,messageField);
         Inventory.initInventory(this.window);
 
-        messageField.printMessage("...",4000);
-        messageField.printMessage("Де я?",4000);
-        messageField.printMessage("Я-я..., я не...",4000);
-        messageField.printMessage("Що я тут роблю? Що це за місце?",5000);
-        messageField.printMessage("...",3000);
-        messageField.printMessage("Ці отвори у стінах схожі на якісь портали. Зі мною не станеться нічого поганого якщо я загляну у них?",5000);
+        messageField.printMessage("...",2000);
+        messageField.printMessage("Де я?",2000);
+        messageField.printMessage("Я-я..., я не...",1000);
+        messageField.printMessage("Що я тут роблю? Що це за місце?",2000);
+        messageField.printMessage("...",1000);
+        messageField.printMessage("Ці отвори у стінах схожі на якісь портали. Зі мною не станеться нічого поганого якщо я загляну у них?",3000);
 
         gameField.drawRoomWithPortals();
 
@@ -34,7 +36,7 @@ public class UI {
 
     public void initWindow(){
         window = new JFrame();
-        window.setSize(1100,800);
+        window.setSize(1250,800);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.BLACK);
         window.setLayout(null);
