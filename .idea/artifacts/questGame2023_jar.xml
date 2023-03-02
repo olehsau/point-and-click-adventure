@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="questGame2023:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/questGame2023_jar</output-path>
+    <root id="archive" name="questGame2023.jar">
+      <element id="module-output" name="questGame2023" />
+    </root>
+  </artifact>
+</component>
